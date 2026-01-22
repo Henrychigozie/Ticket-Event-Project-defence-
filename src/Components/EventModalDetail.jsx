@@ -1,4 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
+import { usePaystackPayment } from "react-paystack";
+// 1. Import your Firebase tools
+import { db, auth } from "../FireBase/firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const EventModalDetail = ({
   selectedEvent,
@@ -8,7 +12,58 @@ const EventModalDetail = ({
   handleShare,
   openInMaps,
 }) => {
+  const [isProcessing, setIsProcessing] = useState(false);
+
   if (!selectedEvent) return null;
+
+  // 2. Convert price string to kobo (e.g., "₦5,000" -> 500000)
+  // Paystack expects the amount in the smallest currency unit.
+  const numericPrice =
+    parseInt(selectedEvent.price.replace(/[^0-9]/g, "")) * 100 || 500000;
+
+  // 3. Paystack Configuration
+  const config = {
+    reference: new Date().getTime().toString(),
+    email: auth.currentUser?.email || "customer@example.com", // Paystack requires an email
+    amount: numericPrice,
+    publicKey: "pk_test_82c44f3057d7458b006f39e5cb39c15e33fedb3a", // REPLACE WITH YOUR PAYSTACK PUBLIC KEY
+    currency: "NGN",
+  };
+
+  const initializePayment = usePaystackPayment(config);
+
+  // 4. Function that runs when payment is successful
+  const onSuccess = async (reference) => {
+    setIsProcessing(true);
+    try {
+      // Save ticket to your "tickets" collection in Firestore
+      await addDoc(collection(db, "tickets"), {
+        eventTitle: selectedEvent.title,
+        paymentRef: reference.reference, // Paystack Reference ID
+        amountPaid: selectedEvent.price,
+        customerEmail: auth.currentUser?.email || "Guest",
+        userId: auth.currentUser?.uid || "anonymous",
+        status: "confirmed",
+        purchasedAt: serverTimestamp(),
+      });
+
+      alert("Payment Successful! Your ticket has been saved to the database.");
+      setSelectedEvent(null); // Close the modal
+    } catch (error) {
+      console.error("Firebase Error:", error);
+      alert(
+        "Payment was successful, but we couldn't save your ticket. Please screenshot this reference: " +
+          reference.reference,
+      );
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const onClose = () => {
+    console.log("Payment window closed");
+    setIsProcessing(false);
+  };
 
   return (
     <div className="fixed inset-0 z-[3000] flex items-center justify-center p-4">
@@ -68,8 +123,16 @@ const EventModalDetail = ({
               </p>
             </div>
 
-            <button className="bg-yellow-400 text-black px-10 py-4 rounded-full font-black uppercase text-xs tracking-widest hover:scale-105 transition active:scale-95 shadow-lg shadow-yellow-400/20">
-              Buy Now
+            {/* 5. UPDATED BUY BUTTON */}
+            <button
+              onClick={() => {
+                setIsProcessing(true);
+                initializePayment(onSuccess, onClose);
+              }}
+              disabled={isProcessing}
+              className="bg-yellow-400 text-black px-10 py-4 rounded-full font-black uppercase text-xs tracking-widest hover:scale-105 transition active:scale-95 shadow-lg shadow-yellow-400/20 disabled:opacity-50"
+            >
+              {isProcessing ? "Processing..." : "Buy Now"}
             </button>
           </div>
 

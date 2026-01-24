@@ -47,7 +47,7 @@ const EventCard = ({ event, onSelect, onTickets }) => {
               e.stopPropagation();
               onTickets(event);
             }}
-            className="bg-white text-black text-[10px] font-black px-6 py-3 rounded-full hover:bg-yellow-400 transition-all transform active:scale-95 uppercase tracking-tighter"
+            className="bg-white text-black text-[10px] font-black px-6 py-3 rounded-full hover:bg-yellow-400 transition-all transform active:scale-95 uppercase tracking-tighter text-[12px]"
           >
             Tickets
           </button>

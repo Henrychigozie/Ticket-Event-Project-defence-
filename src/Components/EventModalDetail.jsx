@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { usePaystackPayment } from "react-paystack";
-// 1. Import your Firebase tools
 import { db, auth } from "../FireBase/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
@@ -16,30 +15,27 @@ const EventModalDetail = ({
 
   if (!selectedEvent) return null;
 
-  // 2. Convert price string to kobo (e.g., "₦5,000" -> 500000)
-  // Paystack expects the amount in the smallest currency unit.
   const numericPrice =
     parseInt(selectedEvent.price.replace(/[^0-9]/g, "")) * 100 || 500000;
 
-  // 3. Paystack Configuration
   const config = {
     reference: new Date().getTime().toString(),
-    email: auth.currentUser?.email || "customer@example.com", // Paystack requires an email
+    email: auth.currentUser?.email || "customer@example.com",
     amount: numericPrice,
-    publicKey: "pk_test_82c44f3057d7458b006f39e5cb39c15e33fedb3a", // REPLACE WITH YOUR PAYSTACK PUBLIC KEY
+    publicKey: "pk_test_82c44f3057d7458b006f39e5cb39c15e33fedb3a",
     currency: "NGN",
   };
 
   const initializePayment = usePaystackPayment(config);
 
-  // 4. Function that runs when payment is successful
+  // ✅ SUCCESS HANDLER
   const onSuccess = async (reference) => {
     setIsProcessing(true);
+
     try {
-      // Save ticket to your "tickets" collection in Firestore
       await addDoc(collection(db, "tickets"), {
         eventTitle: selectedEvent.title,
-        paymentRef: reference.reference, // Paystack Reference ID
+        paymentRef: reference.reference,
         amountPaid: selectedEvent.price,
         customerEmail: auth.currentUser?.email || "Guest",
         userId: auth.currentUser?.uid || "anonymous",
@@ -47,22 +43,23 @@ const EventModalDetail = ({
         purchasedAt: serverTimestamp(),
       });
 
-      alert("Payment Successful! Your ticket has been saved to the database.");
-      setSelectedEvent(null); // Close the modal
+      alert("Payment Successful! Your ticket has been saved.");
+      setSelectedEvent(null);
     } catch (error) {
       console.error("Firebase Error:", error);
       alert(
-        "Payment was successful, but we couldn't save your ticket. Please screenshot this reference: " +
-          reference.reference,
+        "Payment was successful, but ticket saving failed. Reference: " +
+          reference.reference
       );
     } finally {
       setIsProcessing(false);
     }
   };
 
+  // ✅ CLOSE / CANCEL HANDLER
   const onClose = () => {
-    console.log("Payment window closed");
     setIsProcessing(false);
+    console.log("Payment cancelled");
   };
 
   return (
@@ -123,12 +120,9 @@ const EventModalDetail = ({
               </p>
             </div>
 
-            {/* 5. UPDATED BUY BUTTON */}
+            {/* ✅ FIXED BUY BUTTON */}
             <button
-              onClick={() => {
-                setIsProcessing(true);
-                initializePayment(onSuccess, onClose);
-              }}
+              onClick={() => initializePayment(onSuccess, onClose)}
               disabled={isProcessing}
               className="bg-yellow-400 text-black px-10 py-4 rounded-full font-black uppercase text-xs tracking-widest hover:scale-105 transition active:scale-95 shadow-lg shadow-yellow-400/20 disabled:opacity-50"
             >

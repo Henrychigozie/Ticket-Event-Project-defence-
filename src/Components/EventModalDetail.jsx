@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
+import { usePaystackPayment } from "react-paystack";
+import { db, auth } from "../FireBase/firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const EventModalDetail = ({
   selectedEvent,
@@ -8,7 +11,56 @@ const EventModalDetail = ({
   handleShare,
   openInMaps,
 }) => {
+  const [isProcessing, setIsProcessing] = useState(false);
+
   if (!selectedEvent) return null;
+
+  const numericPrice =
+    parseInt(selectedEvent.price.replace(/[^0-9]/g, "")) * 100 || 500000;
+
+  const config = {
+    reference: new Date().getTime().toString(),
+    email: auth.currentUser?.email || "customer@example.com",
+    amount: numericPrice,
+    publicKey: "pk_test_82c44f3057d7458b006f39e5cb39c15e33fedb3a",
+    currency: "NGN",
+  };
+
+  const initializePayment = usePaystackPayment(config);
+
+  // ✅ SUCCESS HANDLER
+  const onSuccess = async (reference) => {
+    setIsProcessing(true);
+
+    try {
+      await addDoc(collection(db, "tickets"), {
+        eventTitle: selectedEvent.title,
+        paymentRef: reference.reference,
+        amountPaid: selectedEvent.price,
+        customerEmail: auth.currentUser?.email || "Guest",
+        userId: auth.currentUser?.uid || "anonymous",
+        status: "confirmed",
+        purchasedAt: serverTimestamp(),
+      });
+
+      alert("Payment Successful! Your ticket has been saved.");
+      setSelectedEvent(null);
+    } catch (error) {
+      console.error("Firebase Error:", error);
+      alert(
+        "Payment was successful, but ticket saving failed. Reference: " +
+          reference.reference
+      );
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  // ✅ CLOSE / CANCEL HANDLER
+  const onClose = () => {
+    setIsProcessing(false);
+    console.log("Payment cancelled");
+  };
 
   return (
     <div className="fixed inset-0 z-[3000] flex items-center justify-center p-4">
@@ -68,8 +120,13 @@ const EventModalDetail = ({
               </p>
             </div>
 
-            <button className="bg-yellow-400 text-black px-10 py-4 rounded-full font-black uppercase text-xs tracking-widest hover:scale-105 transition active:scale-95 shadow-lg shadow-yellow-400/20">
-              Buy Now
+            {/* ✅ FIXED BUY BUTTON */}
+            <button
+              onClick={() => initializePayment(onSuccess, onClose)}
+              disabled={isProcessing}
+              className="bg-yellow-400 text-black px-10 py-4 rounded-full font-black uppercase text-xs tracking-widest hover:scale-105 transition active:scale-95 shadow-lg shadow-yellow-400/20 disabled:opacity-50"
+            >
+              {isProcessing ? "Processing..." : "Buy Now"}
             </button>
           </div>
 

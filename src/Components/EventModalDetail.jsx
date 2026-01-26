@@ -81,7 +81,7 @@ const EventModalDetail = ({
           <img
             src={selectedEvent.img}
             alt={selectedEvent.title}
-            className="w-full aspect-square object-cover rounded-[2rem] shadow-2xl"
+            className="w-full aspect-square object-cover rounded-4xl shadow-2xl"
           />
         </div>
 

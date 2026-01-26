@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { usePaystackPayment } from "react-paystack";
 import { db, auth } from "../FireBase/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { GeoAltFill } from "react-bootstrap-icons";
 
 const EventModalDetail = ({
   selectedEvent,
@@ -49,7 +50,7 @@ const EventModalDetail = ({
       console.error("Firebase Error:", error);
       alert(
         "Payment was successful, but ticket saving failed. Reference: " +
-          reference.reference
+          reference.reference,
       );
     } finally {
       setIsProcessing(false);
@@ -101,7 +102,8 @@ const EventModalDetail = ({
                 {selectedEvent.venue}
               </p>
               <p className="text-xs text-white/40 font-black uppercase tracking-widest mt-1">
-                📍 Track on Google Maps
+                <GeoAltFill className="inline mr-1 text-2xl text-white group-hover/loc:text-yellow-400" />
+                Track on Google Maps
               </p>
             </div>
 
@@ -139,6 +141,13 @@ const EventModalDetail = ({
               {selectedEvent.type.toLowerCase()} event designed for the
               community.
             </p>
+
+            <ul className="list-disc list-inside text-white/60 leading-relaxed text-sm space-y-2">
+              <p>You can get a refund if:</p>
+
+              <li>It’s within 24 hours of buying tickets</li>
+              <li>This event is rescheduled or cancelled</li>
+            </ul>
           </div>
 
           <div className="flex gap-4 pt-4">

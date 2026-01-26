@@ -6,11 +6,11 @@ const EventCard = ({ event, onSelect, onTickets }) => {
       onClick={() => onSelect(event)}
       className="group relative flex flex-col bg-[#080808] p-4 rounded-[2.5rem] border border-white/5 hover:border-white/20 transition-all duration-500 cursor-pointer"
     >
-      <div className="relative aspect-4/5 rounded-[2rem] overflow-hidden bg-[#111] mb-6">
+      <div className="relative aspect-4/5 rounded-4xl overflow-hidden bg-[#111] mb-6">
         <img
           src={event.img}
           alt={event.title}
-          className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+          className="w-full h-full object-cover grayscale-20 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
         />
 
         <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white font-black text-[9px] px-3 py-1.5 rounded-full border border-white/10 tracking-widest uppercase">
@@ -47,7 +47,7 @@ const EventCard = ({ event, onSelect, onTickets }) => {
               e.stopPropagation();
               onTickets(event);
             }}
-            className="bg-white text-black text-[10px] font-black px-6 py-3 rounded-full hover:bg-yellow-400 transition-all transform active:scale-95 uppercase tracking-tighter text-[12px]"
+            className="bg-white text-black font-black px-6 py-3 rounded-full hover:bg-yellow-400 transition-all transform active:scale-95 uppercase tracking-tighter text-[12px]"
           >
             Tickets
           </button>

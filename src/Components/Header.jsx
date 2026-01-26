@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Header = ({ query, setQuery, setSelectedState }) => {
   return (
@@ -19,9 +20,11 @@ const Header = ({ query, setQuery, setSelectedState }) => {
         />
       </div>
 
-      <button className="bg-white text-black px-8 py-2.5 rounded-full font-black text-xs uppercase tracking-widest hover:bg-yellow-400 transition">
-        Login
-      </button>
+      <Link to="/login">
+        <button className="bg-white text-black px-8 py-2.5 rounded-full font-black text-xs uppercase tracking-widest hover:bg-yellow-400 transition">
+          Login
+        </button>
+      </Link>
     </nav>
   );
 };

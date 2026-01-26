@@ -5,7 +5,7 @@ import EventsGrid from "./EventsGrid";
 import EventModalDetail from "./EventModalDetail";
 import events, { states } from "./eventsData";
 
-const DiceNigeria = () => {
+const Events = () => {
   const [selectedState, setSelectedState] = useState("Nigeria");
   const [query, setQuery] = useState("");
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -84,4 +84,4 @@ const DiceNigeria = () => {
   );
 };
 
-export default DiceNigeria;
+export default Events;

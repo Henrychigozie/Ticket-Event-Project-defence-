@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import LandingPage from "./pages/LandingPage";
+import GetHelp from "./pages/GetHelp";
+import Footer from "./components/Footer";
+import Layout from "./layouts/Layout";
+import ScrollToTop from "./components/ScrollToTop";
+import SignUp from "./pages/SignUp";
+import { LogIn, Sidebar } from "lucide-react";
+
+import EventForm from './pages/EventForm'
+import EventsDashboard from "./pages/EventsDashboard";
+import DashboardLayout from "./layouts/DashboardLayout";
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <ScrollToTop />
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<LandingPage />} />
+          {/* <Route path="/BrowseEvents" element={< />} /> */}
+          <Route path="/GetHelp" element={<GetHelp />} />
+          <Route path="/SignUp" element={<SignUp />} />
+          <Route path="/SignUp" element={<SignUp />} />
+          <Route path="/LogIn" element={<LogIn />} />
+
+        </Route>
+
+          {/* Dashboard */}
+      <Route path="/dashboard" element={<DashboardLayout />}>
+        <Route path=""   element={<EventsDashboard />}/>
+      </Route>
+      </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

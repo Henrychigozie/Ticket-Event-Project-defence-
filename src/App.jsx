@@ -1,37 +1,30 @@
-import { useEffect } from "react";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "./FireBase/firebase";
-
-import Events from "./Components/events.jsx";
-import Login from "./pages/login.jsx";
-
 import { Routes, Route } from "react-router-dom";
-import "./App.css";
+import LandingPage from "./pages/LandingPage";
+import GetHelp from "./pages/GetHelp";
+import Layout from "./layouts/Layout";
+import ScrollToTop from "./components/ScrollToTop";
+import SignUp from "./pages/SignUp";
+import Profile from "./pages/Profile";
 
 function App() {
-useEffect(() => {
-  const testWrite = async () => {
-    try {
-      await addDoc(collection(db, "tickets"), {
-        debug: true,
-        source: "test-write",
-        time: new Date(),
-      });
-      console.log("✅ Firestore write successful");
-    } catch (e) {
-      console.error("❌ Firestore write failed:", e);
-    }
-  };
-
-  testWrite();
-}, []);
-
-
   return (
-    <Routes>
-      <Route path="/" element={<Events />} />
-      <Route path="/login" element={<Login />} />
-    </Routes>
+    <>
+      <ScrollToTop />
+
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/GetHelp" element={<GetHelp />} />
+          <Route path="/SignUp" element={<SignUp />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/LogIn" element={<SignUp />} />
+        </Route>
+      </Routes>
+    </>
+  );
+}
+
+export default App;
   );
 }
 

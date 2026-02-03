@@ -17,6 +17,7 @@ import {
   ArrowUpRight,
   ArrowUp,
 } from "lucide-react";
+import logo from "/src/assets/Tix-logo-transparent.png";  // Import your logo image
 
 const Footer = () => {
   const footerLinks = {
@@ -157,9 +158,11 @@ const Footer = () => {
           {/* Brand & Social */}
           <div className="md:col-span-1">
             <div className="flex items-center space-x-3 mb-6">
-              <div className="w-10 h-10 bg-black rounded-xl flex items-center justify-center">
-                <Music className="w-6 h-6 text-white" />
-              </div>
+              <img 
+                src={logo} 
+                alt="Tix-PH Logo" 
+                className="w-10 h-10 border-2 border-gray-500 object-contain"
+              />
               <div>
                 <span className="text-2xl font-black text-black">Tix-PH</span>
                 <div className="flex items-center space-x-1 mt-1">
@@ -250,9 +253,16 @@ const Footer = () => {
         {/* Copyright */}
         <div className="mt-12 pt-8 border-t border-gray-200">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="text-gray-600 text-xs sm:text-sm text-center md:text-left">
-              <p>© {new Date().getFullYear()} Tix-PH Holdings Ltd. All rights reserved.</p>
-              <p className="mt-1">Registered with Rad5 TECH HUB SEC: CS2023123456</p>
+            <div className="flex items-center space-x-3">
+              <img 
+                src={logo} 
+                alt="Tix-PH Logo" 
+                className="w-8 h-8 border border-gray-400 object-contain"
+              />
+              <div className="text-gray-600 text-xs sm:text-sm">
+                <p>© {new Date().getFullYear()} Tix-PH Holdings Ltd. All rights reserved.</p>
+                <p className="mt-1">Registered with Rad5 TECH HUB SEC: CS2023123456</p>
+              </div>
             </div>
             <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
               <a href="#" className="text-gray-600 hover:text-black text-xs sm:text-sm">Sitemap</a>

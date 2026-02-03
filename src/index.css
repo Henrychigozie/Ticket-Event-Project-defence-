@@ -26,7 +26,6 @@ html {
   scroll-behavior: smooth;
 }
 
-
 /* body {
   font-family: 'Special Gothic Condensed One', sans-serif;
 }
@@ -63,7 +62,9 @@ select {
 button:hover {
   cursor: pointer;
 }
-input:focus, textarea:focus, select:focus {
+input:focus,
+textarea:focus,
+select:focus {
   outline: 2px solid #000;
   outline-offset: 2px;
 }
@@ -118,3 +119,109 @@ img {
   transition: background-color 0.3s ease;
 }
 
+/* Mobile-specific improvements (do not change desktop styles) */
+@media (max-width: 767px) {
+  /* Slightly increase container padding on small screens for breathing room */
+  .container {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  /* Improve header tap targets and logo sizing on mobile */
+  header img {
+    width: 40px;
+    height: 40px;
+  }
+
+  header .text-xl {
+    font-size: 1.125rem;
+  }
+
+  header a,
+  header button {
+    /* Make links/buttons easier to tap */
+    padding-top: 0.6rem !important;
+    padding-bottom: 0.6rem !important;
+  }
+
+  /* Make hero and large headings wrap and reduce size slightly on small screens */
+  h1,
+  h2,
+  .section-title {
+    word-break: break-word;
+  }
+
+  /* Improve mobile menu readability */
+  .md\:hidden .flex,
+  .md\:hidden .container {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Ensure images don't overflow small screens */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* ===== SCROLL TO TOP BUTTON STYLES ===== */
+
+.scroll-to-top-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 50; /* Higher than content, below header */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px; /* Slightly larger for better touch target */
+  height: 52px;
+  border-radius: 50%;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  
+  /* The Secret Sauce: Professional Easing */
+  transition: 
+    opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 0.2s ease;
+  
+  /* Start State */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(30px) scale(0.8);
+  pointer-events: none;
+}
+
+.scroll-to-top-btn.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.scroll-to-top-btn:hover {
+  background-color: #222;
+  /* Lift effect */
+  transform: translateY(-5px);
+  box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.4);
+}
+
+.scroll-to-top-btn:active {
+  transform: translateY(0) scale(0.95);
+  transition: transform 0.1s ease;
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+  .scroll-to-top-btn {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 48px;
+    height: 48px;
+  }
+}

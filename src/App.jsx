@@ -3,7 +3,7 @@ import LandingPage from "./pages/LandingPage";
 import GetHelp from "./pages/GetHelp";
 import Events from "./pages/events"; // Import your Events component
 import Layout from "./layouts/Layout";
-import ScrollToTop from "./Components/ScrollToTop";
+import ScrollToTop from "./components/ScrollToTop";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
 

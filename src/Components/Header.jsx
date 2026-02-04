@@ -106,7 +106,7 @@ const Header = () => {
       if (e.key === "Enter" && isSearchOpen) {
         e.preventDefault();
         if (searchQuery.trim()) {
-          navigate(`/BrowseEvents?q=${encodeURIComponent(searchQuery.trim())}`);
+          navigate(`/events?q=${encodeURIComponent(searchQuery.trim())}`);
           setIsSearchOpen(false);
           setSearchQuery("");
         }
@@ -134,7 +134,7 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-60 transition-all duration-300 ${headerHeight} ${
+      className={`fixed top-0 left-0 right-0 z-2000 transition-all duration-300 ${headerHeight} ${
         scrollY > 50 || isMenuOpen
           ? "bg-white border-b shadow-sm"
           : "bg-white md:bg-transparent"
@@ -160,7 +160,7 @@ const Header = () => {
                 e.preventDefault();
                 if (searchQuery.trim()) {
                   navigate(
-                    `/BrowseEvents?q=${encodeURIComponent(searchQuery.trim())}`,
+                    `/events?q=${encodeURIComponent(searchQuery.trim())}`,
                   );
                   setIsSearchOpen(false);
                   setSearchQuery("");
@@ -191,12 +191,13 @@ const Header = () => {
 
         {/* DESKTOP ACTIONS - UNTOUCHED */}
         <div className="hidden md:flex items-center space-x-6 shrink-0">
-          <Link
-            to="/BrowseEvents"
-            className="text-sm font-medium hover:text-gray-600 transition"
-          >
-            Browse Events
-          </Link>
+          {/* To this: */}
+        <Link
+  to="/events" // Change from /BrowseEvents
+  className="text-sm font-medium hover:text-gray-600 transition"
+>
+  Browse Events
+</Link>
           <Link
             to="/GetHelp"
             className="flex items-center space-x-1 text-sm font-medium hover:text-gray-600 transition"
@@ -293,7 +294,7 @@ const Header = () => {
         <div className="h-full overflow-y-auto py-8 px-6 flex flex-col">
           <nav className="space-y-4">
             <Link
-              to="/BrowseEvents"
+              to="/events"
               onClick={() => setIsMenuOpen(false)}
               className="flex items-center justify-between p-4 bg-gray-50 rounded-2xl"
             >

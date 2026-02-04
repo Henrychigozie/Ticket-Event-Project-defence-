@@ -9,6 +9,7 @@ import { app } from "/firebase";
 import { Link, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import {
+  ArrowLeft,
   User,
   Lock,
   Mail,
@@ -329,8 +330,21 @@ const AttendanceAuth = () => {
         }}
       />
 
-      <div className="min-h-screen bg-gradient-to-b  from-white via-gray-50 to-gray-100 flex items-center justify-center px-4 py-8">
-        <div className="relative w-full max-w-5xl mx-auto">
+      {/* Back to Home Button */}
+    <div className="fixed top-2 left-2 z-50 bg-white w-10 h-10 rounded-full justify-center items-center">
+      <Link 
+        to="/" 
+        className="flex items-center space-x-2 text-gray-500 hover:text-black transition-colors duration-200 group"
+      >
+        <div className="p-2 rounded-full group-hover:bg-gray-100 transition-colors">
+          <ArrowLeft className="w-6 h-6 font-extrabold" />
+        </div>
+        
+      </Link>
+    </div>
+
+      <div className="min-h-screen bg-gradient-to-b  from-gray-700/40 via-gray-50 to-gray-100 flex items-center justify-center px-4 py-8  ">
+        <div className="relative w-full max-w-5xl mx-auto mt-10">
           {/* Header */}
           <div className="text-center mb-12">
             <div className="flex flex-col items-center space-y-4">

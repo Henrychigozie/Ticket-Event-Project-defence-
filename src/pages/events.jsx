@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import Header from "../components/Header";
+import Header from "../Components/Header";
 import FilterBar from "../components/FilterBar";
 import EventsGrid from "../components/EventsGrid";
 import EventModalDetail from "../components/EventModalDetail";

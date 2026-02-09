@@ -43,17 +43,17 @@ const MyTickets = () => {
 
   if (loading)
     return (
-      <div className="text-white p-20 text-center">Loading your tickets...</div>
+      <div className="text-black p-20 text-center">Loading your tickets...</div>
     );
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white p-8 pt-24">
+    <div className="min-h-screen bg-[#ffffff] text-black p-8 pt-24">
       <h1 className="text-4xl font-black mb-10 tracking-tighter">MY TICKETS</h1>
 
       {tickets.length === 0 ? (
-        <div className="border border-white/10 rounded-3xl p-20 text-center">
-          <TicketPerforatedFill className="text-6xl text-white/20 mx-auto mb-4" />
-          <p className="text-white/40">
+        <div className="border border-black/10 rounded-3xl p-20 text-center">
+          <TicketPerforatedFill className="text-6xl text-black mx-auto mb-4" />
+          <p className="text-black">
             You haven't purchased any tickets yet.
           </p>
         </div>
@@ -62,7 +62,7 @@ const MyTickets = () => {
           {tickets.map((ticket) => (
             <div
               key={ticket.id}
-              className="bg-[#111] border border-white/10 rounded-[2rem] overflow-hidden relative"
+              className="bg-[#111] border border-black/10 rounded-[2rem] overflow-hidden relative"
             >
               {/* Ticket Top Design */}
               <div className="p-6 space-y-4">
@@ -70,12 +70,12 @@ const MyTickets = () => {
                   <span className="bg-yellow-400 text-black text-[10px] font-black px-3 py-1 rounded-full uppercase">
                     {ticket.status}
                   </span>
-                  <p className="text-[10px] text-white/40 font-mono uppercase">
+                  <p className="text-[10px] text-black/40 font-mono uppercase">
                     {ticket.paymentRef}
                   </p>
                 </div>
                 <div className="mt-2">
-                  <span className="text-[10px] text-white/30 font-mono">
+                  <span className="text-[10px] text-black/30 font-mono">
                     Ticket ID: {ticket.ticketId}
                   </span>
                 </div>
@@ -83,22 +83,22 @@ const MyTickets = () => {
                 <h3 className="text-2xl font-bold leading-tight">
                   {ticket.eventTitle}
                 </h3>
-                <div className="text-xs text-white/40 mb-1">
+                <div className="text-xs text-black/40 mb-1">
                   {ticket.eventVenue} • {ticket.eventLocation}
                 </div>
-                <div className="text-xs text-white/40 mb-1">
+                <div className="text-xs text-black/40 mb-1">
                   {ticket.eventDate}{" "}
                   {ticket.eventTime ? `• ${ticket.eventTime}` : ""}
                 </div>
-                <div className="text-xs text-white/40 mb-1">
+                <div className="text-xs text-black/40 mb-1">
                   Type: {ticket.ticketType} | Qty: {ticket.ticketQuantity || 1}
                 </div>
 
-                <div className="space-y-2 text-white/60 text-sm">
+                <div className="space-y-2 text-black/60 text-sm">
                   <p className="flex items-center gap-2">
                     <CalendarEvent /> Confirmed Order
                   </p>
-                  <p className="text-xs text-white/30">
+                  <p className="text-xs text-black/30">
                     Purchased:{" "}
                     {ticket.purchasedAt?.toDate
                       ? ticket.purchasedAt.toDate().toLocaleString()
@@ -108,16 +108,16 @@ const MyTickets = () => {
               </div>
 
               {/* Perforated Line Effect */}
-              <div className="border-t border-dashed border-white/20 relative my-2">
-                <div className="absolute -left-3 -top-3 w-6 h-6 bg-[#050505] rounded-full"></div>
-                <div className="absolute -right-3 -top-3 w-6 h-6 bg-[#050505] rounded-full"></div>
+              <div className="border-t border-dashed border-black/20 relative my-2">
+                <div className="absolute -left-3 -top-3 w-6 h-6 bg-[#ffffff] rounded-full"></div>
+                <div className="absolute -right-3 -top-3 w-6 h-6 bg-[#ffffff] rounded-full"></div>
               </div>
 
               {/* Ticket Bottom Design (QR Code Placeholder & Sharing) */}
               <div className="p-6 bg-white/5 flex flex-col gap-2 items-center">
                 <div className="w-full flex justify-between items-center">
                   <div>
-                    <p className="text-[10px] text-white/40 uppercase font-black">
+                    <p className="text-[10px] text-black/40 uppercase font-black">
                       Paid Amount
                     </p>
                     <p className="text-xl font-black">{ticket.amountPaid}</p>
@@ -125,12 +125,12 @@ const MyTickets = () => {
                   <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center">
                     {/* QR code placeholder. To enable, install and use qrcode.react or similar. */}
                     {/* <QRCode value={ticket.verificationCode || ticket.ticketId || ''} size={48} /> */}
-                    <div className="w-12 h-12 bg-black flex items-center justify-center text-white text-[8px] text-center p-1">
+                    <div className="w-12 h-12 bg-black flex items-center justify-center text-black text-[8px] text-center p-1">
                       QR
                     </div>
                   </div>
                 </div>
-                <div className="mt-2 text-[10px] text-white/30 font-mono text-center">
+                <div className="mt-2 text-[10px] text-black/30 font-mono text-center">
                   Code: {ticket.verificationCode || ticket.ticketId}
                 </div>
                 {/* Sharing Buttons */}
@@ -141,7 +141,7 @@ const MyTickets = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     title="Share via WhatsApp"
-                    className="bg-green-500 hover:bg-green-600 text-white rounded-full p-2 flex items-center"
+                    className="bg-green-500 hover:bg-green-600 text-black rounded-full p-2 flex items-center"
                   >
                     <svg
                       width="18"
@@ -156,7 +156,7 @@ const MyTickets = () => {
                   <a
                     href={`mailto:?subject=My Event Ticket for ${ticket.eventTitle}&body=${encodeURIComponent(`Here is my ticket for ${ticket.eventTitle} on Tix-PH!%0AEvent: ${ticket.eventTitle}%0ADate: ${ticket.eventDate} ${ticket.eventTime ? "at " + ticket.eventTime : ""}%0AVenue: ${ticket.eventVenue}, ${ticket.eventLocation}%0ATicket ID: ${ticket.ticketId}%0AVerification Code: ${ticket.verificationCode || ticket.ticketId}`)}`}
                     title="Share via Email"
-                    className="bg-blue-500 hover:bg-blue-600 text-white rounded-full p-2 flex items-center"
+                    className="bg-blue-500 hover:bg-blue-600 text-black rounded-full p-2 flex items-center"
                   >
                     <svg
                       width="18"
@@ -175,7 +175,7 @@ const MyTickets = () => {
                       alert("Ticket info copied to clipboard!");
                     }}
                     title="Copy ticket info"
-                    className="bg-gray-700 hover:bg-gray-900 text-white rounded-full p-2 flex items-center"
+                    className="bg-gray-700 hover:bg-gray-900 text-black rounded-full p-2 flex items-center"
                   >
                     <ShareFill />
                   </button>

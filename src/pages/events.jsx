@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react"; 
-import { useLocation } from "react-router-dom"; 
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Header from "../Components/Header";
-import FilterBar from "../Components/FilterBar";
-import EventsGrid from "../Components/EventsGrid";
-import EventModalDetail from "../Components/EventModalDetail";
-import events, { states } from "../Components/eventsData";
+import FilterBar from "../components/FilterBar";
+import EventsGrid from "../components/EventsGrid";
+import EventModalDetail from "../components/EventModalDetail";
+import events, { states } from "../components/eventsData";
 
 const Events = () => {
   const location = useLocation();
@@ -31,7 +31,10 @@ const Events = () => {
   ================================ */
   const openInMaps = (venue, state) => {
     const mapQuery = encodeURIComponent(`${venue}, ${state}, Nigeria`);
-    window.open(`https://www.google.com/maps/search/?api=1&query=${mapQuery}`, "_blank");
+    window.open(
+      `https://www.google.com/maps/search/?api=1&query=${mapQuery}`,
+      "_blank",
+    );
   };
 
   const handleShare = async (event) => {
@@ -42,7 +45,9 @@ const Events = () => {
           text: `Check out ${event.title} at ${event.venue}!`,
           url: window.location.href,
         });
-      } catch (err) { /* ignore cancel */ }
+      } catch (err) {
+        /* ignore cancel */
+      }
     } else {
       navigator.clipboard.writeText(window.location.href);
       alert("Link copied!");
@@ -51,7 +56,7 @@ const Events = () => {
 
   const toggleSave = (title) => {
     setSavedEvents((prev) =>
-      prev.includes(title) ? prev.filter((t) => t !== title) : [...prev, title]
+      prev.includes(title) ? prev.filter((t) => t !== title) : [...prev, title],
     );
   };
 
@@ -67,13 +72,10 @@ const Events = () => {
 
   return (
     <div className=" text-black min-h-screen">
-      <div className="max-w-7xl mx-auto w-full pt-20"> {/* Added padding for fixed header */}
-        <Header
-          query={query}
-          setQuery={setQuery}
-          setSelectedState={setSelectedState}
-        />
-
+      <div className="max-w-7xl mx-auto w-full pt-20">
+        {" "}
+        {/* Added padding for fixed header */}
+        <Header query={query} setQuery={setQuery} />
         <FilterBar
           states={states}
           selectedState={selectedState}
@@ -81,7 +83,6 @@ const Events = () => {
           query={query}
           setQuery={setQuery}
         />
-
         <main className="px-6 py-16 ">
           <EventsGrid
             filteredEvents={filteredEvents}
@@ -89,7 +90,6 @@ const Events = () => {
             selectedState={selectedState}
           />
         </main>
-
         <EventModalDetail
           selectedEvent={selectedEvent}
           setSelectedEvent={setSelectedEvent}

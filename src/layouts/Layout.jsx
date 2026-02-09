@@ -20,12 +20,14 @@ const Layout = () => {
 
   const isSignUp = location.pathname === "/SignUp";
   const shouldHide = isSignUp || isModalOpen;
+  const isevents = location.pathname === "/events";
+  const shouldHideEvents = isevents && isModalOpen;
 
   return (
     <>
-      {!shouldHide && <Header />}
+      {!shouldHide && !shouldHideEvents && <Header />}
       <Outlet />
-      {!shouldHide && <Footer />}
+      {!shouldHide && !shouldHideEvents && <Footer />}
     </>
   );
 };

@@ -15,10 +15,10 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import logo from "/src/assets/Tix-logo-transparent.png";
 
-const Header = () => {
+const Header = ({ query: externalQuery, setQuery: setExternalQuery }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(externalQuery || "");
   const [scrollY, setScrollY] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -96,6 +96,13 @@ const Header = () => {
     }
   }, [isSearchOpen]);
 
+  // Sync search bar with external query (from events page)
+  useEffect(() => {
+    if (typeof externalQuery === "string" && externalQuery !== searchQuery) {
+      setSearchQuery(externalQuery);
+    }
+  }, [externalQuery]);
+
   // Close overlays with Escape
   useEffect(() => {
     const onKey = (e) => {
@@ -108,7 +115,7 @@ const Header = () => {
         if (searchQuery.trim()) {
           navigate(`/events?q=${encodeURIComponent(searchQuery.trim())}`);
           setIsSearchOpen(false);
-          setSearchQuery("");
+          if (setExternalQuery) setExternalQuery(searchQuery.trim());
         }
       }
     };
@@ -180,24 +187,47 @@ const Header = () => {
 
         {/* DESKTOP SEARCH - UNTOUCHED */}
         <div className="hidden md:flex flex-1 justify-center px-8">
-          <div className="relative w-full max-w-md">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-            <input
-              className="w-full pl-10 pr-4 py-2 border rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-black/5"
-              placeholder="Search events..."
-            />
-          </div>
-        </div>
+  <div className="relative w-full max-w-md">
+    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+    <input
+      className="w-full pl-10 pr-4 py-2 border rounded-full text-sm focus:outline-none bg-white" // Added bg-white to ensure no transparency
+      placeholder="Search events..."
+      
+      /* ADD THESE TWO PROPS TO STOP THE OVERLAYING WORDS */
+      autoComplete="off"
+      spellCheck="false"
+      
+      value={searchQuery}
+      onChange={(e) => {
+        setSearchQuery(e.target.value);
+        if (setExternalQuery) setExternalQuery(e.target.value);
+      }}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" && searchQuery.trim()) {
+          navigate(`/events?q=${encodeURIComponent(searchQuery.trim())}`);
+          if (setExternalQuery) setExternalQuery(searchQuery.trim());
+        }
+      }}
+    />
+  </div>
+</div>
 
         {/* DESKTOP ACTIONS - UNTOUCHED */}
         <div className="hidden md:flex items-center space-x-6 shrink-0">
           {/* To this: */}
-        <Link
-  to="/events" // Change from /BrowseEvents
-  className="text-sm font-medium hover:text-gray-600 transition"
->
-  Browse Events
-</Link>
+          <Link
+            to="/events" // Change from /BrowseEvents
+            className="text-sm font-medium hover:text-gray-600 transition"
+          >
+            Browse Events
+          </Link>
+
+          <Link
+            to="/my-tickets"
+            className="text-sm font-medium hover:text-gray-600 transition"
+          >
+            My tickets
+          </Link>
           <Link
             to="/GetHelp"
             className="flex items-center space-x-1 text-sm font-medium hover:text-gray-600 transition"

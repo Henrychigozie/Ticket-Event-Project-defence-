@@ -75,11 +75,7 @@ const Events = () => {
       <div className="max-w-7xl mx-auto w-full pt-20">
         {" "}
         {/* Added padding for fixed header */}
-        <Header
-          query={query}
-          setQuery={setQuery}
-          setSelectedState={setSelectedState}
-        />
+        <Header query={query} setQuery={setQuery} />
         <FilterBar
           states={states}
           selectedState={selectedState}

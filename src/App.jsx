@@ -6,7 +6,7 @@ import Layout from "./layouts/Layout";
 import ScrollToTop from "./components/ScrollToTop";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
-
+import MyTickets from "./pages/MyTickets";
 function App() {
   return (
     <>
@@ -19,6 +19,7 @@ function App() {
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/LogIn" element={<SignUp />} />
+          <Route path="/my-tickets" element={<MyTickets />} />
         </Route>
       </Routes>
     </>

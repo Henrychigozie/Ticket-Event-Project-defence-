@@ -1,20 +1,33 @@
-import { Outlet } from "react-router-dom";
-import Header from "../components/Header";
+import { Outlet, useLocation } from "react-router-dom";
+import Header from "../Components/Header";
 import Footer from "../components/Footer";
-import { useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const Layout = () => {
   const location = useLocation();
-  const signUp = location.pathname === "/SignUp";
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Watch for the class we added in the Modal
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsModalOpen(document.body.classList.contains("modal-open"));
+    });
+
+    observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const isSignUp = location.pathname === "/SignUp";
+  const shouldHide = isSignUp || isModalOpen;
 
   return (
     <>
-      {!signUp && <Header />}
-
+      {!shouldHide && <Header />}
       <Outlet />
-
-      {!signUp && <Footer />}
+      {!shouldHide && <Footer />}
     </>
   );
 };
+
 export default Layout;

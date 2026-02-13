@@ -144,7 +144,7 @@ const Header = ({ query: externalQuery, setQuery: setExternalQuery }) => {
       className={`fixed top-0 left-0 right-0 z-2000 transition-all duration-300 ${headerHeight} ${
         scrollY > 50 || isMenuOpen
           ? "bg-white border-b shadow-sm"
-          : "bg-white md:bg-transparent"
+          : "bg-white"
       }`}
     >
       <div className="container mx-auto px-4 lg:px-10 h-full flex items-center justify-between relative">
@@ -187,30 +187,30 @@ const Header = ({ query: externalQuery, setQuery: setExternalQuery }) => {
 
         {/* DESKTOP SEARCH - UNTOUCHED */}
         <div className="hidden md:flex flex-1 justify-center px-8">
-  <div className="relative w-full max-w-md">
-    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-    <input
-      className="w-full pl-10 pr-4 py-2 border rounded-full text-sm focus:outline-none bg-white" // Added bg-white to ensure no transparency
-      placeholder="Search events..."
-      
-      /* ADD THESE TWO PROPS TO STOP THE OVERLAYING WORDS */
-      autoComplete="off"
-      spellCheck="false"
-      
-      value={searchQuery}
-      onChange={(e) => {
-        setSearchQuery(e.target.value);
-        if (setExternalQuery) setExternalQuery(e.target.value);
-      }}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" && searchQuery.trim()) {
-          navigate(`/events?q=${encodeURIComponent(searchQuery.trim())}`);
-          if (setExternalQuery) setExternalQuery(searchQuery.trim());
-        }
-      }}
-    />
-  </div>
-</div>
+          <div className="relative w-full max-w-md">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <input
+              className="w-full pl-10 pr-4 py-2 border rounded-full text-sm focus:outline-none bg-white" // Added bg-white to ensure no transparency
+              placeholder="Search events..."
+              /* ADD THESE TWO PROPS TO STOP THE OVERLAYING WORDS */
+              autoComplete="off"
+              spellCheck="false"
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                if (setExternalQuery) setExternalQuery(e.target.value);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && searchQuery.trim()) {
+                  navigate(
+                    `/events?q=${encodeURIComponent(searchQuery.trim())}`,
+                  );
+                  if (setExternalQuery) setExternalQuery(searchQuery.trim());
+                }
+              }}
+            />
+          </div>
+        </div>
 
         {/* DESKTOP ACTIONS - UNTOUCHED */}
         <div className="hidden md:flex items-center space-x-6 shrink-0">
@@ -223,11 +223,12 @@ const Header = ({ query: externalQuery, setQuery: setExternalQuery }) => {
           </Link>
 
           <Link
-            to="/my-tickets"
+            to="/my-tickets" // Change from /BrowseEvents
             className="text-sm font-medium hover:text-gray-600 transition"
           >
-            My tickets
+            My Tickets
           </Link>
+
           <Link
             to="/GetHelp"
             className="flex items-center space-x-1 text-sm font-medium hover:text-gray-600 transition"

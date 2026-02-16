@@ -1,7 +1,8 @@
 import { Routes, Route } from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
 import LandingPage from "./pages/LandingPage";
 import GetHelp from "./pages/GetHelp";
-import Events from "./pages/events"; // Import your Events component
+import Events from "./pages/events"; 
 import Layout from "./layouts/Layout";
 import ScrollToTop from "./components/ScrollToTop";
 import SignUp from "./pages/SignUp";

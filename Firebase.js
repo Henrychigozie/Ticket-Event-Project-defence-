@@ -1,5 +1,6 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { getFirestore } from "firebase/firestore"; // 1. Add this import
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_APIKEY,
@@ -10,9 +11,8 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_APPID,
 };
 
-// Check if a Firebase app has already been initialized.
-// If yes, use that one; if no, initialize a new one.
 export const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
+export const db = getFirestore(app); // 2. Add this line
 export const googleProvider = new GoogleAuthProvider();

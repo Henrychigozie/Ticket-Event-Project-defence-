@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
 import LandingPage from "./pages/LandingPage";
 import GetHelp from "./pages/GetHelp";
 import Events from "./pages/events";

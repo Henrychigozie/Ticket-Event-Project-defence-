@@ -1,7 +1,8 @@
 import { Routes, Route } from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
 import LandingPage from "./pages/LandingPage";
 import GetHelp from "./pages/GetHelp";
-import Events from "./pages/events"; // Import your Events component
+import Events from "./pages/events"; 
 import Layout from "./layouts/Layout";
 import ScrollToTop from "./components/ScrollToTop";
 import SignUp from "./pages/SignUp";
@@ -14,7 +15,7 @@ function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/events" element={<Events />} /> {/* Add this line */}
+          <Route path="/events" element={<Events />} />
           <Route path="/GetHelp" element={<GetHelp />} />
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/profile" element={<Profile />} />

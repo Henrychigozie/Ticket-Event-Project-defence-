@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://henrychigozie.github.io/Ticket-Event-Project-defence-.git",
+  "homepage": "https://henrychigozie.github.io/Ticket-Event-Project-defence-",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -16,8 +16,6 @@
     "@tailwindcss/vite": "^4.1.18",
     "bootstrap-icons": "^1.13.1",
     "firebase": "^12.9.0",
-    "firebase": "^12.8.0",
-    "gh-pages": "^6.3.0",
     "lucide-react": "^0.562.0",
     "qrcode.react": "^4.2.0",
     "react": "^18.3.1",

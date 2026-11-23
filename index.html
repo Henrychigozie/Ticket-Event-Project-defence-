@@ -2,13 +2,29 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./assets/Tix-logo-CtY7SNQu.png" />
+    <link rel="icon" type="image/svg+xml" href="/Ticket-Event-Project-defence-/assets/Tix-logo-CtY7SNQu.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.paystack.co https://checkout.paystack.com https://apis.google.com https://www.googletagmanager.com https://www.gstatic.com https://identitytoolkit.googleapis.com;">
 
     <title>Tix-PH</title>
-    <script type="module" crossorigin src="./assets/index-DYSPEC9r.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-tBvRHr6C.css">
+    <script>
+      (function (location) {
+        if (location.search[1] === "/") {
+          var decoded = location.search
+            .slice(1)
+            .split("&")
+            .join("?")
+            .replace(/~and~/g, "&");
+          window.history.replaceState(
+            null,
+            null,
+            location.pathname.replace(/\/$/, "") + decoded + location.hash
+          );
+        }
+      })(window.location);
+    </script>
+    <script type="module" crossorigin src="/Ticket-Event-Project-defence-/assets/index-DLNIR-J-.js"></script>
+    <link rel="stylesheet" crossorigin href="/Ticket-Event-Project-defence-/assets/index-tBvRHr6C.css">
   </head>
   <body>
     <div id="root"></div>

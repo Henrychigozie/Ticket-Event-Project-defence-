@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script>
+      var repo = "/Ticket-Event-Project-defence-";
+      var path = window.location.pathname.startsWith(repo)
+        ? window.location.pathname.slice(repo.length)
+        : window.location.pathname;
+      window.location.replace(
+        repo + "/?/" + path.replace(/^\//, "") +
+        window.location.search.replace(/^\?/, "&") +
+        window.location.hash
+      );
+    </script>
+  </head>
+  <body></body>
+</html>
